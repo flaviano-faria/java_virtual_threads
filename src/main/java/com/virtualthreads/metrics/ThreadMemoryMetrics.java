@@ -102,5 +102,14 @@ public class ThreadMemoryMetrics {
 
         return totalMemoryUsed;
     }
+
+    /**
+     * Measures the execution time of creating and running 1000 tasks using a cached thread pool.
+     * This method uses platform threads from Executors.newCachedThreadPool() to execute the tasks.
+     * The measurement includes the time to submit all tasks and wait for their completion.
+     */
+    public void measureCachedThread() {
+        threadCreationService.createCachedThread("cached-thread-test");
+    }
 }
 

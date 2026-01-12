@@ -8,7 +8,7 @@ public class Main {
 
         // Memory comparison for single threads
         compareSingleThreadMemory();
-    }
+            }
 
     private static void compareSingleThreadMemory() throws InterruptedException {
         System.out.println("--- Total Memory Used by Single Thread ---\n");
@@ -42,5 +42,9 @@ public class Main {
         }
         System.out.println("\nNote: Platform threads allocate a fixed ~1MB stack per thread,");
         System.out.println("      while virtual threads only allocate memory as needed (typically a few KB).");
+
+        metrics.measureCachedThread();
     }
+
+
 }
