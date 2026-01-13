@@ -108,8 +108,12 @@ public class ThreadMemoryMetrics {
      * This method uses platform threads from Executors.newCachedThreadPool() to execute the tasks.
      * The measurement includes the time to submit all tasks and wait for their completion.
      */
-    public void measureCachedThread() {
+    public void measureThread() {
         threadCreationService.createCachedThread("cached-thread-test");
+        threadCreationService.createFixedThreadPool("fixed-thread-test");
+        threadCreationService.createVirtualThreadPoc("virtual-poc-thread-test");
     }
+
+
 }
 

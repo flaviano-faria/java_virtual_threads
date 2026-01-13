@@ -70,7 +70,7 @@ public class ThreadCreationService {
     public void createCachedThread(String threadName) {
         var begin = Instant.now();
         try (var executor = Executors.newCachedThreadPool()) {
-            IntStream.range(0, 1000000).forEach(
+            IntStream.range(0, 1000).forEach(
                     i -> executor.submit(() -> {
                         try {
                             Thread.sleep(Duration.ofSeconds(1));
@@ -83,6 +83,43 @@ public class ThreadCreationService {
         }
         var end = Instant.now();
         System.out.printf("Cached thread pool (%s) completed in %s%n", threadName, Duration.between(begin, end));
+    }
+
+    public void createFixedThreadPool(String threadName) {
+        var begin = Instant.now();
+        try (var executor = Executors.newFixedThreadPool(1000)) {
+            IntStream.range(0, 1000).forEach(
+                    i -> executor.submit(() -> {
+                        try {
+                            Thread.sleep(Duration.ofSeconds(1));
+                            return i;
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            return -1;
+                        }
+                    }));
+        }
+        var end = Instant.now();
+        System.out.printf("Fixed thread pool (%s) completed in %s%n", threadName, Duration.between(begin, end));
+    }
+
+
+    public void createVirtualThreadPoc(String threadName) {
+        var begin = Instant.now();
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            IntStream.range(0, 1000).forEach(
+                    i -> executor.submit(() -> {
+                        try {
+                            Thread.sleep(Duration.ofSeconds(1));
+                            return i;
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            return -1;
+                        }
+                    }));
+        }
+        var end = Instant.now();
+        System.out.printf("virtual thread poc (%s) completed in %s%n", threadName, Duration.between(begin, end));
     }
 }
 

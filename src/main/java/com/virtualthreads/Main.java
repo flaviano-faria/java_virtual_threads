@@ -43,7 +43,7 @@ public class Main {
         System.out.println("\nNote: Platform threads allocate a fixed ~1MB stack per thread,");
         System.out.println("      while virtual threads only allocate memory as needed (typically a few KB).");
 
-        metrics.measureCachedThread();
+        metrics.measureThread();
     }
 
 
