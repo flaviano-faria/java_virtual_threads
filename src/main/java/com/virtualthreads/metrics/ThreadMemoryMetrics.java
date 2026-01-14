@@ -112,6 +112,7 @@ public class ThreadMemoryMetrics {
         threadCreationService.createCachedThread("cached-thread-test");
         threadCreationService.createFixedThreadPool("fixed-thread-test");
         threadCreationService.createVirtualThreadPoc("virtual-poc-thread-test");
+        threadCreationService.checkVirtualThread("check thread ");
     }
 
 

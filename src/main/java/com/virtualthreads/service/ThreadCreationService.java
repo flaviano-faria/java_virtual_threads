@@ -121,6 +121,23 @@ public class ThreadCreationService {
         var end = Instant.now();
         System.out.printf("virtual thread poc (%s) completed in %s%n", threadName, Duration.between(begin, end));
     }
+
+    public void checkVirtualThread(String threadName) {
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            IntStream.range(0, 1000).forEach(
+                    i -> executor.submit(() -> {
+                            System.out.println("Thread " + threadName + "is virtual:" + Thread.currentThread().isVirtual());
+                            try {
+                                Thread.sleep(Duration.ofSeconds(1));
+                                return i;
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                return -1;
+                            }
+                        }
+                    ));
+        }
+    }
 }
 
 
