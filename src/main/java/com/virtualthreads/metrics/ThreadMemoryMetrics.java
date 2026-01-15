@@ -109,10 +109,11 @@ public class ThreadMemoryMetrics {
      * The measurement includes the time to submit all tasks and wait for their completion.
      */
     public void measureThread() {
-        threadCreationService.createCachedThread("cached-thread-test");
-        threadCreationService.createFixedThreadPool("fixed-thread-test");
-        threadCreationService.createVirtualThreadPoc("virtual-poc-thread-test");
-        threadCreationService.checkVirtualThread("check thread ");
+        //threadCreationService.createCachedThread("cached-thread-test");
+        //threadCreationService.createFixedThreadPool("fixed-thread-test");
+        //threadCreationService.createVirtualThreadPoc("virtual-poc-thread-test");
+        //threadCreationService.checkVirtualThread("check thread ");
+        threadCreationService.pocVirtualThreadsJdk24("poc virtual threads java 24");
     }
 
 

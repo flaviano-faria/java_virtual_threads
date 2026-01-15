@@ -3,6 +3,7 @@ package com.virtualthreads.service;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.stream.IntStream;
 
 /**
@@ -137,6 +138,32 @@ public class ThreadCreationService {
                         }
                     ));
         }
+    }
+
+    public void pocVirtualThreadsJdk24(String threadName) {
+        var begin = Instant.now();
+        ThreadFactory factory = Thread.ofVirtual().factory();
+        final Object lock = new Object();
+        try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
+            IntStream.range(0, 10000).forEach(
+                    i -> executor.submit(() -> {
+                                System.out.println("Thread " + threadName + "is virtual:" + Thread.currentThread().isVirtual());
+
+                                synchronized (lock){
+                                    try {
+                                        Thread.sleep(Duration.ofSeconds(1));
+                                        return i;
+                                    } catch (InterruptedException e) {
+                                        Thread.currentThread().interrupt();
+                                        return -1;
+                                    }
+                                }
+
+                            }
+                    ));
+        }
+        var end = Instant.now();
+        System.out.printf("Poc virtual thread java 24 (%s) completed in %s%n", threadName, Duration.between(begin, end));
     }
 }
 
