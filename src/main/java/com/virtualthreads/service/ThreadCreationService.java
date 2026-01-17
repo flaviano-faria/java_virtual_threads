@@ -145,7 +145,7 @@ public class ThreadCreationService {
         ThreadFactory factory = Thread.ofVirtual().factory();
         final Object lock = new Object();
         try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
-            IntStream.range(0, 10000).forEach(
+            IntStream.range(0, 1000).forEach(
                     i -> executor.submit(() -> {
                                 System.out.println("Thread " + threadName + "is virtual:" + Thread.currentThread().isVirtual());
 
